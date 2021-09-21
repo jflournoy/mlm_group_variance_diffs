@@ -41,7 +41,7 @@ nada <- clusterEvalQ(cl, {library(lme4); library(lmerTest)})
 clusterExport(cl, c('sim'))
 # Set a different seed on each member of the cluster (just in case)
 clusterSetRNGStream(cl)
-asim <- parallel::parSapply(cl = cl, X = 1:5000*NCPU, FUN = function(i) sim())
+asim <- parallel::parSapply(cl = cl, X = 1:(1000*NCPU), FUN = function(i) sim())
 stopCluster(cl)
 
 apply(asim, 1, function(x) sum(x < .05) / length(x))
